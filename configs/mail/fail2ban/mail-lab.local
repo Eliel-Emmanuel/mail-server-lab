@@ -1,0 +1,28 @@
+[DEFAULT]
+bantime  = 10m
+findtime = 10m
+maxretry = 5
+ignoreip = 127.0.0.1/8 ::1
+banaction = ufw
+banaction_allports = ufw
+
+[sshd]
+enabled = true
+
+[postfix-sasl]
+enabled = true
+port    = smtp,submission,submissions
+backend = auto
+logpath = /var/log/mail.log
+
+[dovecot]
+enabled = true
+port    = imaps
+backend = auto
+logpath = /var/log/mail.log
+
+[roundcube-auth]
+enabled = true
+port    = http,https
+backend = auto
+logpath = /var/log/roundcube/errors.log

@@ -1,0 +1,32 @@
+# --- Secrets : ne jamais publier ---
+# Clés privées et certificats (TLS, DKIM, CA)
+*.key
+*.pem
+!configs/**/*.fullchain.pem
+*.csr
+*.srl
+*.p12
+*.pfx
+lab-ca/
+# Clés SSH (OpenSSH, PuTTY/MobaXterm)
+id_rsa
+id_ecdsa
+id_ed25519
+*.ppk
+# Fichier des boîtes Dovecot (hashs) : seul users.example est publié
+users
+# Coffre et variables locales
+.vault_pass
+.env
+
+# --- Fichiers de travail ---
+*.retry
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+collecte/
+*.tar.gz
+*.zip

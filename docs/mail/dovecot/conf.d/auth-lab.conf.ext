@@ -1,0 +1,11 @@
+# Mots de passe : fichier /etc/dovecot/users
+passdb {
+  driver = passwd-file
+  args = scheme=BLF-CRYPT username_format=%Lu /etc/dovecot/users
+}
+
+# Utilisateurs : tous possédés par vmail, boîte selon domaine et nom
+userdb {
+  driver = static
+  args = uid=vmail gid=vmail home=/var/mail/vhosts/%Ld/%Ln
+}

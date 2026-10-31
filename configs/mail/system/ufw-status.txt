@@ -1,0 +1,17 @@
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), disabled (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+22/tcp on enp0s8           ALLOW IN    192.168.56.0/24            # SSH labo
+53/udp on enp0s8           ALLOW IN    192.168.56.0/24            # DNS labo
+53/tcp on enp0s8           ALLOW IN    192.168.56.0/24            # DNS labo (TCP)
+587/tcp on enp0s8          ALLOW IN    192.168.56.0/24            # labo 587
+465/tcp on enp0s8          ALLOW IN    192.168.56.0/24            # labo 465
+993/tcp on enp0s8          ALLOW IN    192.168.56.0/24            # labo 993
+25/tcp on enp0s8           ALLOW IN    192.168.56.0/24            # SMTP labo
+80/tcp on enp0s8           ALLOW IN    192.168.56.0/24            # web labo 80
+443/tcp on enp0s8          ALLOW IN    192.168.56.0/24            # web labo 443
+

@@ -1,0 +1,85 @@
+# 2.3.21 (47349e2482): /etc/dovecot/dovecot.conf
+# Pigeonhole version 0.5.21 (f6cd4b8e)
+# OS: Linux 6.8.0-147-generic x86_64 Ubuntu 24.04.5 LTS 
+# Hostname: mail.lab.test
+auth_mechanisms = plain login
+auth_verbose = yes
+mail_location = maildir:~/Maildir
+mail_privileged_group = mail
+managesieve_notify_capability = mailto
+managesieve_sieve_capability = fileinto reject envelope encoded-character vacation subaddress comparator-i;ascii-numeric relational regex imap4flags copy include variables body enotify environment mailbox date index ihave duplicate mime foreverypart extracttext
+namespace inbox {
+  inbox = yes
+  location = 
+  mailbox Drafts {
+    auto = subscribe
+    special_use = \Drafts
+  }
+  mailbox Junk {
+    auto = subscribe
+    special_use = \Junk
+  }
+  mailbox Sent {
+    auto = subscribe
+    special_use = \Sent
+  }
+  mailbox "Sent Messages" {
+    special_use = \Sent
+  }
+  mailbox Trash {
+    auto = subscribe
+    special_use = \Trash
+  }
+  prefix = 
+}
+passdb {
+  args = scheme=BLF-CRYPT username_format=%Lu /etc/dovecot/users
+  driver = passwd-file
+}
+plugin {
+  sieve = file:~/sieve;active=~/.dovecot.sieve
+  sieve_before = /etc/dovecot/sieve/spam-to-junk.sieve
+}
+postmaster_address = postmaster@lab.test
+protocols = " imap lmtp sieve"
+service auth {
+  unix_listener /var/spool/postfix/private/auth {
+    group = postfix
+    mode = 0660
+    user = postfix
+  }
+}
+service imap-login {
+  inet_listener imap {
+    port = 0
+  }
+  inet_listener imaps {
+    port = 993
+    ssl = yes
+  }
+}
+service lmtp {
+  unix_listener /var/spool/postfix/private/dovecot-lmtp {
+    group = postfix
+    mode = 0600
+    user = postfix
+  }
+}
+service managesieve-login {
+  inet_listener sieve {
+    address = 127.0.0.1
+    port = 4190
+  }
+}
+ssl_cert = </etc/ssl/certs/mail.lab.test.fullchain.pem
+ssl_client_ca_dir = /etc/ssl/certs
+ssl_dh = # hidden, use -P to show it
+ssl_key = # hidden, use -P to show it
+ssl_prefer_server_ciphers = yes
+userdb {
+  args = uid=vmail gid=vmail home=/var/mail/vhosts/%Ld/%Ln
+  driver = static
+}
+protocol lmtp {
+  mail_plugins = " sieve"
+}

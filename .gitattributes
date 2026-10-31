@@ -1,0 +1,5 @@
+# Fins de ligne Unix pour tout ce qui sera exécuté ou lu sur les VM Linux,
+# même si le dépôt est manipulé depuis Windows.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
